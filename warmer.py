@@ -1,5 +1,6 @@
 from seleniumwire import webdriver  # Import from seleniumwire
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 from urllib.parse import urlparse
@@ -11,7 +12,8 @@ import sys
 import re
 
 # Create a new instance of the Chrome driver
-options = webdriver.ChromeOptions()
+# options = webdriver.ChromeOptions()
+options = Options()
 options.add_experimental_option('excludeSwitches', ['enable-logging'])
 options.add_argument('ignore-certificate-errors')
 options.add_argument("--ignore-ssl-errors");
