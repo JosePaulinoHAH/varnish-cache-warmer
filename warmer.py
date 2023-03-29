@@ -15,8 +15,9 @@ options = webdriver.ChromeOptions()
 options.add_experimental_option('excludeSwitches', ['enable-logging'])
 options.add_argument('ignore-certificate-errors')
 options.add_argument("--ignore-ssl-errors");
-service = Service(ChromeDriverManager().install())
-driver = webdriver.Chrome(service=service, options=options)
+# service = Service(ChromeDriverManager().install())
+# driver = webdriver.Chrome(service=service, options=options)
+driver = webdriver.Chrome("/usr/bin/chromedriver", options=options)
 
 # Get System Variables
 sysVars = sys.argv
