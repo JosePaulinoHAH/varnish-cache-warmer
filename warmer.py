@@ -15,6 +15,8 @@ import re
 # options = webdriver.ChromeOptions()
 options = Options()
 options.add_experimental_option('excludeSwitches', ['enable-logging'])
+options.add_argument('--no-sandbox')
+options.add_argument('--headless')
 options.add_argument('ignore-certificate-errors')
 options.add_argument("--ignore-ssl-errors");
 # service = Service(ChromeDriverManager().install())
