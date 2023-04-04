@@ -194,9 +194,9 @@ if driver_status_code == 200:
                         # Purge URL Cache
                         headers_for_purge = {
                             'X-Magento-Tags-Pattern': '.*',
-                            'Origin': 'https://front2.mercurestore.com', 
-                            'Referer': 'https://front2.mercurestore.com/', 
-                            'Host': 'stage.mercurestore.com',
+                            'Origin': origin_url, 
+                            'Referer': origin_url, 
+                            'Host': host_url,
                         }
                         response_for_purge = requests.request('PURGE', request.url, headers=headers_for_purge)
                         
@@ -207,11 +207,11 @@ if driver_status_code == 200:
                         # Warm URL Cache
                         headers = {
                             'Accept-Charset': 'UTF-8', 
-                            'Origin': 'https://front2.mercurestore.com', 
-                            'Referer': 'https://front2.mercurestore.com/', 
+                            'Origin': origin_url, 
+                            'Referer': origin_url, 
                             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36', 
                             'Content-Type': 'application/x-www-form-urlencoded', 
-                            'Host': 'stage.mercurestore.com', 
+                            'Host': host_url, 
                             'Connection': 'keep-alive', 
                             'Accept': '*/*', 
                             'Accept-Encoding': 'gzip, deflate, br', 
