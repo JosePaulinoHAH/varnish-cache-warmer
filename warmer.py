@@ -59,7 +59,9 @@ if 0 <= search_index < len(sysVars):
         else:
             # Generate the cache to a specific page
             selected_url ='https://' + mainUrl.hostname + mainUrl.path    
-
+        # Origin    
+        origin_url = 'https://' + mainUrl.hostname
+            
         # Print variable to validate if we set the route correctly
         print(selected_url)
                   
@@ -124,6 +126,10 @@ if driver_status_code == 200:
         print()
         print("Working on: " + str(url))
         print()
+        
+        # Select hostname  
+        hostUrl = urlparse(url)
+        host_url = 'https://' + hostUrl.hostname
     
         # Go to the url
         driver.get(url)
