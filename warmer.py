@@ -59,8 +59,10 @@ if 0 <= search_index < len(sysVars):
         else:
             # Generate the cache to a specific page
             selected_url ='https://' + mainUrl.hostname + mainUrl.path    
-        # Origin    
+        
+        # Select origin and referer   
         origin_url = 'https://' + mainUrl.hostname
+        referer_url = 'https://' + mainUrl.hostname + '/'
             
         # Print variable to validate if we set the route correctly
         print(selected_url)
@@ -126,11 +128,7 @@ if driver_status_code == 200:
         print()
         print("Working on: " + str(url))
         print()
-        
-        # Select hostname  
-        hostUrl = urlparse(url)
-        host_url = hostUrl.hostname
-    
+           
         # Go to the url
         driver.get(url)
         # Creating a time delay of 5 seconds
@@ -191,11 +189,15 @@ if driver_status_code == 200:
                         # print("Valid url.")
                         # print()
                         
+                        # Select hostname  
+                        hostUrl = urlparse(request.url)
+                        host_url = hostUrl.hostname
+                        
                         # Purge URL Cache
                         headers_for_purge = {
                             'X-Magento-Tags-Pattern': '.*',
                             'Origin': origin_url, 
-                            'Referer': origin_url, 
+                            'Referer': referer_url, 
                             'Host': host_url,
                         }
                         response_for_purge = requests.request('PURGE', request.url, headers=headers_for_purge)
@@ -208,7 +210,7 @@ if driver_status_code == 200:
                         headers = {
                             'Accept-Charset': 'UTF-8', 
                             'Origin': origin_url, 
-                            'Referer': origin_url, 
+                            'Referer': referer_url, 
                             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36', 
                             'Content-Type': 'application/x-www-form-urlencoded', 
                             'Host': host_url, 
