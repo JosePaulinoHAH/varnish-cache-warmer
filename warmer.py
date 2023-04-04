@@ -129,7 +129,7 @@ if driver_status_code == 200:
         
         # Select hostname  
         hostUrl = urlparse(url)
-        host_url = 'https://' + hostUrl.hostname
+        host_url = hostUrl.hostname
     
         # Go to the url
         driver.get(url)
