@@ -110,7 +110,7 @@ if driver_status_code == 200:
         # Create list of urls and add them to the array
         i = 1
         urls = []
-        while i <= 5: # foldersCount
+        while i <= foldersCount: # foldersCount
             folderID = "folder" + str(i)
             folder = driver.find_element(By.ID, folderID)
             div1 = folder.find_element(By.CSS_SELECTOR, "div.opened")
