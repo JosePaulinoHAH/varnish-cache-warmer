@@ -194,44 +194,63 @@ if driver_status_code == 200:
                         host_url = hostUrl.hostname
                         
                         # Purge URL Cache
-                        headers_for_purge = {
-                            'X-Magento-Tags-Pattern': '.*',
-                            'Origin': origin_url, 
-                            'Referer': referer_url, 
-                            'Host': host_url,
-                        }
-                        response_for_purge = requests.request('PURGE', request.url, headers=headers_for_purge)
-                        
-                        print("Purging cache: " + str(request.url))
-                        print("Purging response: " + str(response_for_purge.status_code))
-                        
+                        def make_request_purge_url():
+                            try:
+                                headers_for_purge = {
+                                    'X-Magento-Tags-Pattern': '.*',
+                                    'Origin': origin_url, 
+                                    'Referer': referer_url, 
+                                    'Host': host_url,
+                                }
+
+                                response_for_purge = requests.request('PURGE', request.url, headers=headers_for_purge)
+                                
+                                print("Purging cache: " + str(request.url))
+                                print("Purging response: " + str(response_for_purge.status_code))
+                            
+                            except requests.exceptions.ConnectionError:
+                                print("Request URL - Purging: " + str(request.url))
+                                print('Connection error occurred')
+
+                        # Purge URL Cache
+                        make_request_purge_url()
+
                         
                         # Warm URL Cache
-                        headers = {
-                            'Accept-Charset': 'UTF-8', 
-                            'Origin': origin_url, 
-                            'Referer': referer_url, 
-                            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36', 
-                            'Content-Type': 'application/x-www-form-urlencoded', 
-                            'Host': host_url, 
-                            'Connection': 'keep-alive', 
-                            'Accept': '*/*', 
-                            'Accept-Encoding': 'gzip, deflate, br', 
-                            'Cookie': 'PHPSESSID=ataokjsr7q60cfqlp3gq01d52h; X-Magento-Vary=32d628c2559522aa14f1063a481ae6cc696fc48e; store=mercurestore_en', 
-                        }
+                        def make_request_warm_url():
+                            try:
+                                headers = {
+                                    'Accept-Charset': 'UTF-8', 
+                                    'Origin': origin_url, 
+                                    'Referer': referer_url, 
+                                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36', 
+                                    'Content-Type': 'application/x-www-form-urlencoded', 
+                                    'Host': host_url, # 'stage.mercurestore.com'
+                                    'Connection': 'keep-alive', 
+                                    'Accept': '*/*', 
+                                    'Accept-Encoding': 'gzip, deflate, br', 
+                                    'Cookie': 'PHPSESSID=ataokjsr7q60cfqlp3gq01d52h; X-Magento-Vary=32d628c2559522aa14f1063a481ae6cc696fc48e; store=mercurestore_en', 
+                                }
 
-                        r = requests.post(request.url, headers=headers)            
-                        header_array = json.dumps(str(r.headers))
-                        header_array_decode = json.JSONDecoder().decode(header_array)
-                        dictionary = eval(header_array_decode)
-                    
-                        x_varnish = ( "X-Varnish", dictionary.get("X-Varnish") )
+                                r = requests.post(request.url, headers=headers)            
+                                header_array = json.dumps(str(r.headers))
+                                header_array_decode = json.JSONDecoder().decode(header_array)
+                                dictionary = eval(header_array_decode)
+                            
+                                x_varnish = ( "X-Varnish", dictionary.get("X-Varnish") )
 
-                        print("Warming up cache: " + str(request.url))   
-                        print("Varnish headers: " + str(x_varnish))  # print ('X-Varnish', 622799 229506)
-                        print()
+                                print("Warming up cache: " + str(request.url))   
+                                print("Varnish headers: " + str(x_varnish))  # print ('X-Varnish', 622799 229506)
+                                print()
 
-                        # print(str(request.url))
+                                # print(str(request.url))
+
+                            except requests.exceptions.ConnectionError:
+                                print("Request URL - Warming: " + str(request.url))
+                                print('Connection error occurred')
+
+                        # Warm URL Cache
+                        make_request_warm_url()
 
                     else:
                         print(f"{request.url}")
