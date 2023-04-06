@@ -211,6 +211,7 @@ if driver_status_code == 200:
                             except requests.exceptions.ConnectionError:
                                 print("Request URL - Purging: " + str(request.url))
                                 print('Connection error occurred')
+                                print()
 
                         # Purge URL Cache
                         make_request_purge_url()
@@ -248,6 +249,7 @@ if driver_status_code == 200:
                             except requests.exceptions.ConnectionError:
                                 print("Request URL - Warming: " + str(request.url))
                                 print('Connection error occurred')
+                                print()
 
                         # Warm URL Cache
                         make_request_warm_url()
