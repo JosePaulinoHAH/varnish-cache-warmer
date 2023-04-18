@@ -141,6 +141,9 @@ if driver_status_code == 200:
 
         # Access requests via the `requests` attribute
         for request in driver.requests:
+            
+            # Creating a time delay of 5 seconds
+            time.sleep(5)
 
             if request.response:
 
@@ -207,8 +210,10 @@ if driver_status_code == 200:
                                 
                                 print("Purging cache: " + str(request.url))
                                 print("Purging response: " + str(response_for_purge.status_code))
+                                print()
                             
                             except requests.exceptions.ConnectionError:
+                                print()
                                 print("Request URL - Purging: " + str(request.url))
                                 print('Connection error occurred')
                                 print()
