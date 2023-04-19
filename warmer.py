@@ -131,8 +131,8 @@ if driver_status_code == 200:
            
         # Go to the url
         driver.get(url)
-        # Creating a time delay of 5 seconds
-        time.sleep(5)
+        # Creating a time delay of 3 seconds
+        time.sleep(3)
 
         # Go to the url a second time
         driver.get(url)
@@ -142,8 +142,8 @@ if driver_status_code == 200:
         # Access requests via the `requests` attribute
         for request in driver.requests:
             
-            # Creating a time delay of 5 seconds
-            time.sleep(5)
+            # Creating a time delay of 1 seconds
+            time.sleep(1)
 
             if request.response:
 
